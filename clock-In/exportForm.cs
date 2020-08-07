@@ -17,6 +17,9 @@ namespace clock_In
         private Form1 mainForm;
         private ListBox recordList;
         private String employeeName;
+        private int recordCount = 0;
+        TimeSpan ts;
+        DateTime dtWorkTimes;
         public ExportForm(Form1 form1)
         {
             InitializeComponent();
@@ -92,39 +95,126 @@ namespace clock_In
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            String exportFileSavePath = "";
-            SaveFileDialog savefileDialog = new SaveFileDialog();
+            String exportFileName = "";
+            recordCount = 0;
             String tempRecordList = "";
+            int curHour = 0;
+            int curMin = 0;
             if (allRecordCB.Checked)
             {
                 for (int index = 0; index < recordList.Items.Count; index++)
                 {
+                    //get record 日期:2020/8/5 ,時間:上班: 10:31:09,下班: 15:36:08 時數: 05:04
+                    String content = recordList.Items[index].ToString();
+
+                    //get work hours
+                    String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+
+
                     tempRecordList += recordList.Items[index]+"\n";
+                    recordCount += 1;
+
+                    curHour += Convert.ToDateTime(workTimes).Hour;
+                    curMin += Convert.ToDateTime(workTimes).Minute;
                 }
-                exportFileSavePath = employeeName + "-的所有紀錄.txt";
+
+                if(tempRecordList.Length <= 5)
+                {
+                    MessageBox.Show("無打卡紀錄");
+                }
+                else
+                {
+                    String totalTime = convertMinToHours(curHour, curMin);
+                    tempRecordList += "\n\n總共時數=" + totalTime;
+
+                    exportFileName = employeeName + "-的所有打卡紀錄.txt";
+                    MessageBox.Show("共有" + recordCount + "筆紀錄");
+                    saveRecordList(exportFileName, tempRecordList);
+                }
             }
             else
             {
-                exportFileSavePath = employeeName + "-" + yearCombox.SelectedText + "/" + monthComBox.SelectedText+"的紀錄.txt";
+                if(!yearCombox.Text.Equals("") && !monthComBox.Text.Equals(""))
+                {
+                    exportFileName = employeeName + "-" + yearCombox.Text + "年" + monthComBox.Text + "月的打卡紀錄.txt";
+                    for (int index = 0; index < recordList.Items.Count; index++)
+                    {
+                        //get record 日期:2020/8/5 ,時間:上班: 10:31:09,下班: 15:36:08 時數: 05:04
+                        String content = recordList.Items[index].ToString();
+                        // get date 2020/8/5
+                        String date = content.Substring(content.IndexOf("日期:")+3, content.IndexOf(",") - 3);
+                        //get year
+                        String year = date.Split('/')[0];
+                        //get month
+                        String month = date.Split('/')[1];
+                        //get work hours
+                        String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+
+
+
+                        if (year.Equals(yearCombox.Text) && month.Equals(monthComBox.Text))
+                        {
+                            tempRecordList += recordList.Items[index] + "\n";
+                            recordCount += 1;
+                            curHour += Convert.ToDateTime(workTimes).Hour;
+                            curMin += Convert.ToDateTime(workTimes).Minute;
+
+
+                        }
+                    }
+
+                    if (tempRecordList.Length <= 5)
+                    {
+                        MessageBox.Show("無"+yearCombox.Text+"年"+monthComBox.Text+"月打卡紀錄");
+                    }
+                    else
+                    {
+                        MessageBox.Show("共有" + recordCount + "筆紀錄");
+                        String totalTime = convertMinToHours(curHour, curMin);
+                        tempRecordList += "\n\n總共時數=" + totalTime;
+                        saveRecordList(exportFileName, tempRecordList);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("請選擇日期");
+                }
             }
-            savefileDialog.Title = exportFileSavePath;
-            savefileDialog.FileName = exportFileSavePath;
+
+        }
+
+        private void saveRecordList(String exportFileName, String content)
+        {
+            SaveFileDialog savefileDialog = new SaveFileDialog();
+            savefileDialog.Title = exportFileName;
+            savefileDialog.FileName = exportFileName;
             savefileDialog.Filter = "*.txt|";
-            savefileDialog.ShowDialog();
 
             // If the file name is not an empty string open it for saving.
-            if (savefileDialog.FileName != "")
+            if (savefileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Saves the Image via a FileStream created by the OpenFile method.
                 FileStream fs = new FileStream(savefileDialog.FileName, FileMode.OpenOrCreate);
                 fs.Close();
                 StreamWriter sw = new StreamWriter(savefileDialog.FileName, false);
-                sw.Write(tempRecordList);
+                sw.Write(content);
                 sw.Flush();
                 sw.Close();
                 fs.Close();
+                MessageBox.Show("匯出完成");
             }
+            else
+            {
 
+            }
+        }
+
+        private String convertMinToHours(int hours, int min)
+        {
+            int tempHours = hours + (min / 60);
+            int tempMin = min % 60;
+            String result = tempHours.ToString() + "小時" + tempMin+"分";
+            return result;
         }
     }
 }
