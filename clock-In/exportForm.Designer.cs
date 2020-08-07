@@ -41,7 +41,7 @@
             // 
             this.allRecordCB.AutoSize = true;
             this.allRecordCB.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.allRecordCB.Location = new System.Drawing.Point(66, 36);
+            this.allRecordCB.Location = new System.Drawing.Point(12, 12);
             this.allRecordCB.Name = "allRecordCB";
             this.allRecordCB.Size = new System.Drawing.Size(193, 31);
             this.allRecordCB.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             this.yearCombox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.yearCombox.FormattingEnabled = true;
-            this.yearCombox.Location = new System.Drawing.Point(66, 117);
+            this.yearCombox.Location = new System.Drawing.Point(61, 103);
             this.yearCombox.Name = "yearCombox";
             this.yearCombox.Size = new System.Drawing.Size(98, 29);
             this.yearCombox.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             this.monthComBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.monthComBox.FormattingEnabled = true;
-            this.monthComBox.Location = new System.Drawing.Point(195, 117);
+            this.monthComBox.Location = new System.Drawing.Point(190, 103);
             this.monthComBox.Name = "monthComBox";
             this.monthComBox.Size = new System.Drawing.Size(98, 29);
             this.monthComBox.TabIndex = 2;
@@ -71,7 +71,7 @@
             // exportBtn
             // 
             this.exportBtn.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.exportBtn.Location = new System.Drawing.Point(130, 172);
+            this.exportBtn.Location = new System.Drawing.Point(125, 158);
             this.exportBtn.Name = "exportBtn";
             this.exportBtn.Size = new System.Drawing.Size(94, 42);
             this.exportBtn.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(66, 83);
+            this.label1.Location = new System.Drawing.Point(61, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 21);
             this.label1.TabIndex = 4;
@@ -93,7 +93,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(191, 83);
+            this.label2.Location = new System.Drawing.Point(186, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 21);
             this.label2.TabIndex = 5;

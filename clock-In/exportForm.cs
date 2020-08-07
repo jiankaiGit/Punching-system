@@ -108,14 +108,18 @@ namespace clock_In
                     String content = recordList.Items[index].ToString();
 
                     //get work hours
-                    String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+                    if (content.Contains("時數:"))
+                    {
+                        String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+                        curHour += Convert.ToDateTime(workTimes).Hour;
+                        curMin += Convert.ToDateTime(workTimes).Minute;
+                    }
 
 
                     tempRecordList += recordList.Items[index]+"\n";
                     recordCount += 1;
 
-                    curHour += Convert.ToDateTime(workTimes).Hour;
-                    curMin += Convert.ToDateTime(workTimes).Minute;
+
                 }
 
                 if(tempRecordList.Length <= 5)
@@ -147,8 +151,7 @@ namespace clock_In
                         String year = date.Split('/')[0];
                         //get month
                         String month = date.Split('/')[1];
-                        //get work hours
-                        String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+
 
 
 
@@ -156,10 +159,14 @@ namespace clock_In
                         {
                             tempRecordList += recordList.Items[index] + "\n";
                             recordCount += 1;
-                            curHour += Convert.ToDateTime(workTimes).Hour;
-                            curMin += Convert.ToDateTime(workTimes).Minute;
 
-
+                            if (content.Contains("時數:"))
+                            {
+                                //get work hours
+                                String workTimes = content.Substring(content.IndexOf("時數:") + 3);
+                                curHour += Convert.ToDateTime(workTimes).Hour;
+                                curMin += Convert.ToDateTime(workTimes).Minute;
+                            }
                         }
                     }
 
