@@ -21,7 +21,7 @@ namespace clock_In
             public int TotalWorkTime { get; set; }
         }
 
-        List<string> employeeList = new List<string>();
+        public List<string> employeeList = new List<string>();
         string type = "";
         string selectedName = "";
         public Form1()
@@ -31,7 +31,6 @@ namespace clock_In
 
         private void clockBtn_Click(object sender, EventArgs e)
         {
-            string username = nameInput.Text;
             string savePath = System.Windows.Forms.Application.StartupPath;
             string dateAndTime = DateTime.Now.ToString(); // 2017-03-4 20:02:10
             string date = DateTime.Now.ToString().Substring(0,9);
@@ -97,13 +96,11 @@ namespace clock_In
                     ReadEmployeeClockRecord(savePath, name);
 
                 }
-                employeeState.Text = "打卡成功";
-                employeeState.ForeColor = Color.Green;
+                MessageBox.Show("打卡成功");
             }
             else
             {
-                employeeState.Text = "員工不存在";
-                employeeState.ForeColor = Color.Red;
+                MessageBox.Show("員工不存在");
             }
 
         }
@@ -118,10 +115,6 @@ namespace clock_In
                 sw.Flush();
                 sw.Close();
                 nameInputCB.Items.Add(name);
-                employeeState.Text = "新增成功";
-                employeeState.ForeColor = Color.Green;
-
-
         }
 
         public void ReadEmployeeList(string path)
@@ -141,8 +134,7 @@ namespace clock_In
             }
             else
             {
-                employeeState.Text = "無員工";
-                employeeState.ForeColor = Color.Red;
+                MessageBox.Show("無員工");
             }
 
         }
@@ -183,13 +175,10 @@ namespace clock_In
                     dataInfo.Items.Add(tempRecord);
                 }
                 sr.Close();
-                employeeState.Text = "";
-
             }
             else
             {
-                employeeState.Text = "無打卡紀錄";
-                employeeState.ForeColor = Color.Red;
+                MessageBox.Show("無打卡紀錄");
             }
 
         }
@@ -204,35 +193,6 @@ namespace clock_In
             {
                 return false;
             }
-
-        }
-
-        private void addNew_Click(object sender, EventArgs e)
-        {
-            string username = nameInput.Text;
-            if (checkNameExist(username))
-            {
-                employeeState.Text = "員工已加入，或名字相同!";
-                employeeState.ForeColor = Color.Red;
-            }
-            else
-            {
-                if (username == null || username.Equals("輸入性名") || username.Equals(""))
-                {
-                    employeeState.Text = "員工不存在";
-                    employeeState.ForeColor = Color.Red;
-                }
-                else
-                {
-                    string savePath = System.Windows.Forms.Application.StartupPath;
-                    employeeList.Add(username);
-                    WriteNewEmpolyee(savePath, username);
-                    employeeState.Text = "加入成功";
-                    employeeState.ForeColor = Color.Green;
-                }
-
-            }
-
 
         }
 
@@ -251,10 +211,34 @@ namespace clock_In
         {
             string savePath = System.Windows.Forms.Application.StartupPath;
             selectedName = nameInputCB.SelectedItem.ToString();
+            //get employee record
             ReadEmployeeClockRecord(savePath, selectedName);
+
+            //set export button visible
+            wantExportBtn.Visible = true;
             Console.WriteLine(selectedName);
         }
 
+        private void newNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNameMsg addNameMsg = new AddNameMsg(this);
+            addNameMsg.Text = "加入新成員";
+            addNameMsg.Show();
+            this.Enabled = false;
+        }
 
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("版本:1.1.0");
+        }
+
+        private void wantExportBtn_Click(object sender, EventArgs e)
+        {
+            ExportForm exportForm = new ExportForm(this);
+            exportForm.SetRecord(dataInfo);
+            exportForm.SetName(selectedName);
+            exportForm.Show();
+            this.Enabled = false;
+        }
     }
 }
