@@ -55,6 +55,7 @@ namespace clock_In
                     string readLine;
                     while ((readLine = sr.ReadLine()) != null)
                     {
+                        //有打過卡的日期
                         if (readLine.Contains(date))
                         {
                             recordData = "," + time.Substring(0, 8);
@@ -69,14 +70,14 @@ namespace clock_In
                         }
                     }
                     sr.Close();
-                    StreamWriter sw = new StreamWriter(fullPath, true);
+                    StreamWriter sw = new StreamWriter(fullPath, append:true);
                     if (dateExist)
                     {
                         sw.Write(recordData);
                     }
                     else
                     {
-                        sw.WriteLine(recordData);
+                        sw.Write("\n"+recordData);
                     }
 
 
@@ -222,7 +223,6 @@ namespace clock_In
         private void newNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddNameMsg addNameMsg = new AddNameMsg(this);
-            addNameMsg.Text = "加入新成員";
             addNameMsg.Show();
             this.Enabled = false;
         }
