@@ -55,8 +55,9 @@ namespace clock_In
                     string readLine;
                     while ((readLine = sr.ReadLine()) != null)
                     {
+                        String readData = readLine.Substring(readLine.IndexOf("日期:") + 3, readLine.IndexOf(",") -3).Replace(" ","");
                         //有打過卡的日期
-                        if (readLine.Contains(date))
+                        if (readData.Equals(date))
                         {
                             recordData = "," + time.Substring(0, 8);
                             dateExist = true;
