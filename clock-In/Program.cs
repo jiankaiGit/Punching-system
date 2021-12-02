@@ -8,6 +8,7 @@ namespace clock_In
 {
     static class Program
     {
+        private static System.Threading.Mutex mutex;
         /// <summary>
         /// 應用程式的主要進入點。
         /// </summary>
@@ -16,7 +17,17 @@ namespace clock_In
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            mutex = new System.Threading.Mutex(true, "OnlyRun");
+            if (mutex.WaitOne(0, false))
+            {
+                Application.Run(new Form1());
+            }
+            else
+            {
+                MessageBox.Show("程式已經在執行！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Exit();
+            }
+            
         }
     }
 }

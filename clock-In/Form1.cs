@@ -27,6 +27,22 @@ namespace clock_In
         public Form1()
         {
             InitializeComponent();
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem notifyIconMenuItem1 = new MenuItem();
+            //可以設定是否可勾選
+            notifyIconMenuItem1.Checked = true;
+             //在NotifyIcon中的頁籤，順序用
+            notifyIconMenuItem1.Index = 1;
+            //設定顯示的文字，後面的(S&)代表使用者按S鍵也可以觸發Click事件!
+            notifyIconMenuItem1.Text = "關閉";
+            //設定按下後的事情
+            notifyIconMenuItem1.Click += (sender, e) => {
+                this.Close();
+            };
+            //將MenuItem加入到ContextMenu容器中!
+            contextMenu.MenuItems.Add(notifyIconMenuItem1);
+            //設定notifyIcon的選單內容等於剛剛宣告的選單容器ContextMen;
+            notifyIcon1.ContextMenu = contextMenu;
         }
 
         private void clockBtn_Click(object sender, EventArgs e)
@@ -258,8 +274,9 @@ namespace clock_In
                 this.ShowInTaskbar = false;
                 this.WindowState = FormWindowState.Minimized;
                 notifyIcon1.Visible = true;
+                notifyIcon1.Text = "興盛打卡系統";
                 notifyIcon1.Tag = string.Empty;
-                notifyIcon1.ShowBalloonTip(3000, "打卡系統", "我在這裡唷!!!", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(3000, "興盛打卡系統", "我在這裡唷!!!", ToolTipIcon.Info);
             
             }
         }
@@ -267,6 +284,7 @@ namespace clock_In
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // 還原視窗, 隱藏佇列圖示並將程式恢復顯示Taskbar
+            wantExportBtn.Visible = true;
             this.ShowInTaskbar = true;
             notifyIcon1.Visible = false;
             this.WindowState = FormWindowState.Normal;
