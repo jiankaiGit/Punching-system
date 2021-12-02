@@ -40,3 +40,15 @@ D:\git\Punching-system\clock-In\bin\Debug\興盛打卡系統.exe
 D:\git\Punching-system\clock-In\bin\Debug\興盛打卡系統.pdb
 D:\git\Punching-system\clock-In\obj\Debug\興盛打卡系統.exe
 D:\git\Punching-system\clock-In\obj\Debug\興盛打卡系統.pdb
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\bin\Debug\興盛打卡系統.exe.config
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\bin\Debug\興盛打卡系統.exe
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\bin\Debug\興盛打卡系統.pdb
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock-In.csproj.AssemblyReference.cache
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock_In.AddNameMsg.resources
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock_In.Form1.resources
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock_In.ExportForm.resources
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock_In.Properties.Resources.resources
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock-In.csproj.GenerateResource.cache
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\clock-In.csproj.CoreCompileInputs.cache
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\興盛打卡系統.exe
+C:\Users\empg-esr-eason\Desktop\git\Punching-system\clock-In\obj\Debug\興盛打卡系統.pdb

@@ -32,9 +32,9 @@ namespace clock_In
         private void clockBtn_Click(object sender, EventArgs e)
         {
             string savePath = System.Windows.Forms.Application.StartupPath;
-            string dateAndTime = DateTime.Now.ToString(); // 2017-03-4 20:02:10
-            string date = DateTime.Now.ToString().Substring(0,9);
-            string time = DateTime.Now.TimeOfDay.ToString();
+            string dateAndTime = DateTime.Now.ToString("yyyy-MM-dd/HH:mm:ss"); // 2017-03-4 20:02:10
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string time = DateTime.Now.ToString("HH:mm:ss");
             WriteClockRecord(savePath, selectedName,dateAndTime,date,time);
         }
 
@@ -59,13 +59,13 @@ namespace clock_In
                         //有打過卡的日期
                         if (readData.Equals(date))
                         {
-                            recordData = "," + time.Substring(0, 8);
+                            recordData = "," + time;
                             dateExist = true;
                             Console.WriteLine(recordData);
                         }
                         else
                         {
-                            recordData = "日期:" + date + "," + "時間:" + time.Substring(0, 8);
+                            recordData = "日期:" + date + "," + "時間:" + time;
                             dateExist = false;
                             
                         }
@@ -90,7 +90,7 @@ namespace clock_In
                 {
                     FileStream fs = new FileStream(fullPath, FileMode.Create);
                     fs.Close();
-                    recordData = "日期:" + date + "," + "時間:" + time.Substring(0, 8);
+                    recordData = "日期:" + date + "," + "時間:" + time;
                     StreamWriter sw = new StreamWriter(fullPath, true);
                     sw.Write(recordData);
                     sw.Flush();
@@ -187,7 +187,14 @@ namespace clock_In
 
         public Boolean checkNameExist(string name)
         {
-            if (employeeList.Contains(name) && name != null && !name.Equals("輸入性名") &&  !name.Equals(""))
+            foreach (string ExistName in employeeList) 
+            {
+                if (ExistName.Equals(name)) {
+                    return true;
+                }
+            }
+            
+            if (name == null || name.Equals("輸入性名") || name.Equals("")) 
             {
                 return true;
             }
@@ -230,7 +237,7 @@ namespace clock_In
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("版本:1.1.0");
+            MessageBox.Show("版本:1.2.0");
         }
 
         private void wantExportBtn_Click(object sender, EventArgs e)
@@ -240,6 +247,29 @@ namespace clock_In
             exportForm.SetName(selectedName);
             exportForm.Show();
             this.Enabled = false;
+        }
+
+        private void GotoTooList(object sender, FormClosingEventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Minimized) 
+            {
+                e.Cancel = true;
+                this.Hide();
+                this.ShowInTaskbar = false;
+                this.WindowState = FormWindowState.Minimized;
+                notifyIcon1.Visible = true;
+                notifyIcon1.Tag = string.Empty;
+                notifyIcon1.ShowBalloonTip(3000, "打卡系統", "我在這裡唷!!!", ToolTipIcon.Info);
+            
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            // 還原視窗, 隱藏佇列圖示並將程式恢復顯示Taskbar
+            this.ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            this.WindowState = FormWindowState.Normal;
         }
     }
 }

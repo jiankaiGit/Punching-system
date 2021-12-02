@@ -148,9 +148,9 @@ namespace clock_In
                         // get date 2020/8/5
                         String date = content.Substring(content.IndexOf("日期:")+3, content.IndexOf(",") - 3);
                         //get year
-                        String year = date.Split('/')[0];
+                        String year = date.Split('-')[0];
                         //get month
-                        String month = date.Split('/')[1];
+                        String month = date.Split('-')[1];
 
 
 
